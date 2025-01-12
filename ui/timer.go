@@ -15,6 +15,7 @@ import (
 type TimerModel struct {
 	Date      time.Time
 	Guess     int
+	Elapsed   time.Duration
 	stopwatch stopwatch.Model
 	width     int
 	height    int
@@ -58,6 +59,7 @@ func (m TimerModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "0", "1", "2", "3", "4", "5", "6":
 			guess, _ := strconv.Atoi(msg.String())
 			m.setGuess(guess)
+			m.setElapsed(m.stopwatch.Elapsed())
 			return m, tea.Quit
 		}
 
@@ -125,4 +127,8 @@ func (m *TimerModel) setGuess(guess int) {
 func (m *TimerModel) setDate(date time.Time) {
 	go speech.Speak(date.Format("2006-01-02"))
 	m.Date = date
+}
+
+func (m *TimerModel) setElapsed(elapsed time.Duration) {
+	m.Elapsed = elapsed
 }

@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/ArturMinelli/doomsday-algorithm-cli/doomsday"
 	"github.com/charmbracelet/bubbles/table"
@@ -12,14 +13,16 @@ import (
 type FailureModel struct {
 	Doomsday doomsday.Doomsday
 	Guess    int
+	Elapsed  time.Duration
 	width    int
 	height   int
 }
 
-func NewFailure(doomsday doomsday.Doomsday, guess int) FailureModel {
+func NewFailure(doomsday doomsday.Doomsday, guess int, elapsed time.Duration) FailureModel {
 	return FailureModel{
 		Doomsday: doomsday,
 		Guess:    guess,
+		Elapsed:  elapsed,
 	}
 }
 
@@ -58,6 +61,7 @@ func (m FailureModel) View() string {
 			{"Date", m.Doomsday.Date.Format("2006-01-02")},
 			{"Correct Weekday", m.Doomsday.Date.Weekday().String()},
 			{"Your Guess", fmt.Sprintf("%d", m.Guess)},
+			{"Elapsed Time", m.Elapsed.String()},
 			{"", ""},
 			{"Century", fmt.Sprintf("%d", m.Doomsday.Variables.Century)},
 			{"Decade", fmt.Sprintf("%d", m.Doomsday.Variables.Decade)},

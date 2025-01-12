@@ -34,7 +34,7 @@ var practiceCmd = &cobra.Command{
 
 			if state.Guess == doom.Weekday {
 				s := tea.NewProgram(
-					ui.NewSuccess(doom, state.Guess),
+					ui.NewSuccess(doom, state.Guess, state.Elapsed),
 					tea.WithAltScreen(),
 					tea.WithMouseCellMotion(),
 				)
@@ -45,7 +45,7 @@ var practiceCmd = &cobra.Command{
 				}
 			} else {
 				f := tea.NewProgram(
-					ui.NewFailure(doom, state.Guess),
+					ui.NewFailure(doom, state.Guess, state.Elapsed),
 					tea.WithAltScreen(),
 					tea.WithMouseCellMotion(),
 				)
