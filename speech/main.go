@@ -8,7 +8,7 @@ import (
 
 func Speak(text string) {
 	speech := htgotts.Speech{
-		Folder:   "audio",
+		Folder:   "/tmp",
 		Language: voices.English,
 		Handler:  &handlers.MPlayer{},
 	}
